@@ -1,0 +1,19 @@
+.CardTime {
+  display: flex;
+  flex-direction: column;
+  margin-right: 1.5rem;
+
+  &__Subtitle {
+    font-weight: 700;
+    font-size: 0.875rem;
+    line-height: 1rem;
+  }
+
+  &__Items {
+  }
+
+  &__Value {
+    display: inline-flex;
+    margin-right: 0.325rem;
+  }
+}

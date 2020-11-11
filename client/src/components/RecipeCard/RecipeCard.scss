@@ -1,0 +1,47 @@
+.RecipeCard {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+
+  @media screen and (min-width: 60rem) {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  &__ImgWrapper {
+    @media screen and (min-width: 60rem) {
+      width: calc(100% / 12 * 5 - 1.5rem);
+      margin-right: 0.75rem;
+    }
+  }
+
+  &__Img {
+    object-fit: cover;
+    border-radius: 0.35rem;
+    object-position: center;
+    width: 100%;
+    max-height: 15rem;
+    height: auto;
+  }
+
+  &__Content {
+    @media screen and (min-width: 60rem) {
+      width: calc(100% / 12 * 7 - 1.5rem);
+      margin-left: 0.75rem;
+    }
+  }
+
+  &__Info {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+
+  &__Title {
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+}

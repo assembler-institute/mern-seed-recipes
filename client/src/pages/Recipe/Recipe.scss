@@ -1,0 +1,64 @@
+.Recipe {
+  &__Header {
+    padding-top: 1.5rem;
+    padding-bottom: 1rem;
+
+    @media screen and (min-width: 45rem) {
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
+
+    @media screen and (min-width: 60rem) {
+      padding-top: 4rem;
+      padding-bottom: 4rem;
+    }
+  }
+
+  &__Img {
+    object-fit: cover;
+    border-radius: 0.35rem;
+    object-position: center;
+    width: 100%;
+    height: auto;
+    max-height: 15rem;
+
+    @media screen and (min-width: 60rem) {
+      max-height: 20rem;
+    }
+  }
+
+  &__Content {
+    margin-top: 1.5rem;
+
+    @media screen and (min-width: 60rem) {
+      margin-top: 1rem;
+    }
+  }
+
+  &__Subhead {
+    font-weight: 700;
+    font-size: 0.875rem;
+    line-height: 1rem;
+  }
+
+  &__CommentsWrapper {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    margin-bottom: 4rem;
+
+    @media screen and (min-width: 45rem) {
+      padding-top: 4rem;
+      padding-bottom: 4rem;
+    }
+  }
+
+  &__Comment {
+    margin: 0.75rem 0;
+    border-bottom: 1px solid #dee2e6;
+    padding: 0.75rem 0;
+
+    &__Author {
+      font-weight: 700;
+    }
+  }
+}
