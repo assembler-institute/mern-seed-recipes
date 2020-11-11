@@ -14,7 +14,7 @@ Las funcionalidades implementadas son las siguientes:
 
 ### Clonar el repositorio principal
 
-`git clone https://github.com/danilucaci/assemblerschool-challenge.git .`
+`git clone https://github.com/assembler-school/mern-seed-recipes.git .`
 
 ### Seguir las instrucciones en el lado Cliente y Servidor
 
