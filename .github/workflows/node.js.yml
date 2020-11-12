@@ -27,12 +27,12 @@ jobs:
     - name: Test client
       working-directory: ./client/
       run: |
-        npm i
+        npm install
         npm run test
     - name: Test Server
       working-directory: ./server/
       run: |
-        npm i
+        npm install
         npm run test
         
     
