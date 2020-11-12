@@ -65,10 +65,10 @@ export function signUp({ name, lastname, email, password }) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: name,
-        lastname: lastname,
-        email: email,
-        password: password,
+        name,
+        lastname,
+        email,
+        password,
       }),
     }).catch((error) => dispatch(signUpError(error.message)));
 

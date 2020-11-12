@@ -1,0 +1,10 @@
+{
+  "_id": "test_comment_id",
+  "body": "test_comment_body",
+  "recipe": "test_comment_recipe_id",
+  "author": {
+    "_id": "test_comment_author_id",
+    "name": "test_comment_author_name",
+    "lastname": "test_comment_lastname"
+  }
+}
