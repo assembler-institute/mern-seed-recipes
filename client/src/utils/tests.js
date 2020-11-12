@@ -26,14 +26,24 @@ export function renderWithRedux(
   };
 }
 
-export function renderWithRouter(Component = null) {
-  const history = createMemoryHistory();
+export function renderWithRouter(Component = null, route = "/") {
+  const history = createMemoryHistory({ initialEntries: [route] });
 
-  return <Router history={history}>{Component}</Router>;
+  return { App: <Router history={history}>{Component}</Router>, history };
 }
 
-export function renderWithReduxAndRouter(Component = null, reduxStoreOptions) {
-  return { ...renderWithRedux(renderWithRouter(Component), reduxStoreOptions) };
+export function renderWithReduxAndRouter(
+  Component = null,
+  route,
+  reduxStoreOptions,
+) {
+  return {
+    ...renderWithRedux(
+      renderWithRouter(Component, route).App,
+      reduxStoreOptions,
+    ),
+    history: renderWithRouter(Component).history,
+  };
 }
 
 export function getInitialReduxStoreUserState() {

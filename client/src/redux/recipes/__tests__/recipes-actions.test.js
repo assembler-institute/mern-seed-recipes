@@ -10,19 +10,19 @@ import RecipesTypes from "../recipes-types";
 
 import { getInitialReduxStoreUserState } from "../../../utils/tests";
 
-import allRecipesResponse from "../__mocks__/all-recipes.json";
-import singleRecipeResponse from "../__mocks__/single-recipe.json";
-import recipeCommentResponse from "../__mocks__/recipe-comments.json";
+import allRecipesResponse from "../../../__mocks__/recipes/all-recipes.json";
+import singleRecipeResponse from "../../../__mocks__/recipes/single-recipe.json";
+import recipeCommentResponse from "../../../__mocks__/recipes/recipe-comments.json";
 
-import makeTestingServer from "../__mocks__/mock-recipes-service";
+import makeTestingServer from "../../../__mocks__/recipes/mock-recipes-service";
 
-const testData = {
+const recipesData = {
   allRecipesResponse,
   singleRecipeResponse,
   recipeCommentResponse,
 };
 
-const server = makeTestingServer({ testData });
+const server = makeTestingServer({ recipesData });
 
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
@@ -39,8 +39,8 @@ describe("recipes thunk actions tests", () => {
       {
         type: RecipesTypes.FETCH_RECIPES_SUCCESS,
         payload: {
-          byID: testData.allRecipesResponse.recipesByID,
-          ids: testData.allRecipesResponse.recipesIDS,
+          byID: recipesData.allRecipesResponse.recipesByID,
+          ids: recipesData.allRecipesResponse.recipesIDS,
         },
       },
     ];
@@ -58,7 +58,7 @@ describe("recipes thunk actions tests", () => {
       },
       {
         type: RecipesTypes.FETCH_RECIPE_SUCCESS,
-        payload: testData.singleRecipeResponse,
+        payload: recipesData.singleRecipeResponse,
       },
     ];
 
@@ -69,7 +69,7 @@ describe("recipes thunk actions tests", () => {
   });
 
   test("creates a new comment and dispatches the result", async () => {
-    const comment = testData.recipeCommentResponse;
+    const comment = recipesData.recipeCommentResponse;
 
     const expectedActions = [
       {

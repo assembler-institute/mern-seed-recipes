@@ -1,7 +1,7 @@
 {
   "data": [
     {
-      "_id": "5e777ed1c25d916762a49904",
+      "_id": "1",
       "difficulty": "Fácil",
       "hoursToPrep": 0,
       "name": "recipe-1-name",
@@ -11,7 +11,7 @@
       "minutesToPrep": 15
     },
     {
-      "_id": "5e777ed1c25d916762a49904",
+      "_id": "2",
       "difficulty": "Fácil",
       "hoursToPrep": 1,
       "name": "recipe-2-name",
@@ -21,7 +21,7 @@
       "minutesToPrep": 55
     },
     {
-      "_id": "5e777ed1c25d916762a49904",
+      "_id": "3",
       "difficulty": "Fácil",
       "hoursToPrep": 0,
       "name": "recipe-3-name",
@@ -33,8 +33,8 @@
   ],
   "error": null,
   "recipesByID": {
-    "5e777ed1c25d916762a49904": {
-      "_id": "5e777ed1c25d916762a49904",
+    "1": {
+      "_id": "1",
       "difficulty": "Fácil",
       "hoursToPrep": 0,
       "name": "recipe-1-name",
@@ -43,8 +43,8 @@
       "serves": 4,
       "minutesToPrep": 15
     },
-    "5e777ed1c25d916762a49904": {
-      "_id": "5e777ed1c25d916762a49904",
+    "2": {
+      "_id": "2",
       "difficulty": "Fácil",
       "hoursToPrep": 1,
       "name": "recipe-2-name",
@@ -53,8 +53,8 @@
       "serves": 3,
       "minutesToPrep": 55
     },
-    "5e777ed1c25d916762a49904": {
-      "_id": "5e777ed1c25d916762a49904",
+    "3": {
+      "_id": "3",
       "difficulty": "Fácil",
       "hoursToPrep": 0,
       "name": "recipe-3-name",
@@ -64,9 +64,5 @@
       "minutesToPrep": 25
     }
   },
-  "recipesIDS": [
-    "5e777ed1c25d916762a49904",
-    "5e777ed1c25d916762a49904",
-    "5e777ed1c25d916762a49904"
-  ]
+  "recipesIDS": ["1", "2", "3"]
 }

@@ -6,7 +6,7 @@ import UserTypes from "../user-types";
 
 import { getInitialReduxStoreUserState } from "../../../utils/tests";
 
-import makeTestingServer from "../__mocks__/mock-user-service";
+import makeTestingServer from "../../../__mocks__/user/mock-user-service";
 
 const testUser = {
   name: "test_user_name",
@@ -22,7 +22,12 @@ const testPayload = {
   token: "test_user_token",
 };
 
-const server = makeTestingServer({ testUser, testPayload });
+const userData = {
+  testUser,
+  testPayload,
+};
+
+const server = makeTestingServer({ userData });
 
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
