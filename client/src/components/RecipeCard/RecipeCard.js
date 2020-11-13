@@ -28,7 +28,7 @@ function RecipeCard({
       </div>
       <div className="RecipeCard__Content">
         <Link to={`${ROUTES.RECIPES}/${_id}`} className="card-link">
-          <h3 className="RecipeCard__Title">{name}</h3>
+          <h3 test-id="recipe-card-title" className="RecipeCard__Title">{name}</h3>
         </Link>
         <div className="RecipeCard__Info">
           <CardTime hoursToPrep={hoursToPrep} minutesToPrep={minutesToPrep} />

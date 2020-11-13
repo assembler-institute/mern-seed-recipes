@@ -1,0 +1,68 @@
+{
+  "data": [
+    {
+      "_id": "1",
+      "difficulty": "Fácil",
+      "hoursToPrep": 0,
+      "name": "recipe-1-name",
+      "description": "recipe-1-description",
+      "image": "recipe-1-img.jpg",
+      "serves": 4,
+      "minutesToPrep": 15
+    },
+    {
+      "_id": "2",
+      "difficulty": "Fácil",
+      "hoursToPrep": 1,
+      "name": "recipe-2-name",
+      "description": "recipe-2-description",
+      "image": "recipe-2-img.jpg",
+      "serves": 3,
+      "minutesToPrep": 55
+    },
+    {
+      "_id": "3",
+      "difficulty": "Fácil",
+      "hoursToPrep": 0,
+      "name": "recipe-3-name",
+      "description": "recipe-3-description",
+      "image": "recipe-3-img.jpg",
+      "serves": 6,
+      "minutesToPrep": 25
+    }
+  ],
+  "error": null,
+  "recipesByID": {
+    "1": {
+      "_id": "1",
+      "difficulty": "Fácil",
+      "hoursToPrep": 0,
+      "name": "recipe-1-name",
+      "description": "recipe-1-description",
+      "image": "recipe-1-img.jpg",
+      "serves": 4,
+      "minutesToPrep": 15
+    },
+    "2": {
+      "_id": "2",
+      "difficulty": "Fácil",
+      "hoursToPrep": 1,
+      "name": "recipe-2-name",
+      "description": "recipe-2-description",
+      "image": "recipe-2-img.jpg",
+      "serves": 3,
+      "minutesToPrep": 55
+    },
+    "3": {
+      "_id": "3",
+      "difficulty": "Fácil",
+      "hoursToPrep": 0,
+      "name": "recipe-3-name",
+      "description": "recipe-3-description",
+      "image": "recipe-3-img.jpg",
+      "serves": 6,
+      "minutesToPrep": 25
+    }
+  },
+  "recipesIDS": ["1", "2", "3"]
+}
