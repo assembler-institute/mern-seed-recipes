@@ -1,41 +1,41 @@
 {
   "data": {
-    "_id": "5e777ed1c25d916762a49904",
-    "difficulty": "Fácil",
-    "ingredients": ["ingredient 1", "ingredient 2", "ingredient 3"],
+    "_id": "3",
+    "difficulty": "Extrema",
+    "ingredients": ["Pasta", "Ketchup", "Mayonesa", "Bacon"],
     "hoursToPrep": 0,
     "comments": [
       {
-        "_id": "5e7795e51bfa0e70d3c18ec8",
+        "_id": "1",
         "author": {
-          "_id": "5e7795d91bfa0e70d3c18ec7",
+          "_id": "autor-id",
           "name": "name 1",
           "lastname": "lastname 1"
         },
         "body": "comment_body",
-        "recipe": "5e777ed1c25d916762a49904"
+        "recipe": "3"
       },
 
       {
-        "_id": "5e7795b11bfa0e70d3c18ec6",
+        "_id": "2",
         "author": {
-          "_id": "5e7795b11bfa0e70d3c18ec6",
+          "_id": "author-id-2",
           "name": "name 2",
           "lastname": "lastname 2"
         },
         "body": "comment_body",
-        "recipe": "5e777ed1c25d916762a49904"
+        "recipe": "3"
       }
     ],
-    "name": "recipe name",
+    "name": "Pasta con mayonesa ketchup y bacon",
     "description": "recipe description",
     "image": "recipe-img.jpg",
     "serves": 4,
     "minutesToPrep": 15,
     "author": {
-      "_id": "5e777ed1c25d916762a498fe",
-      "name": "author name",
-      "lastname": "author lastname"
+      "_id": "author-id-3",
+      "name": "Gordon",
+      "lastname": "Ramsay"
     }
   }
 }

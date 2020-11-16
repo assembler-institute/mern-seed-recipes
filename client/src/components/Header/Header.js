@@ -1,10 +1,13 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import makePrefix from "../../utils/make-prefix";
 
 import ROUTES from "../../utils/routes";
 import Button from "../Button/Button";
 
 function Header({ currentUserState: { isAuthenticated } = {}, signout }) {
+  const prefix = makePrefix("header");
+
   return (
     <header className="navbar navbar-light navbar-expand sticky-top bg-white border-bottom">
       <nav className="container">
@@ -12,6 +15,7 @@ function Header({ currentUserState: { isAuthenticated } = {}, signout }) {
           to={ROUTES.HOME}
           activeClassName="active"
           className="navbar-brand"
+          data-testid={prefix("project-name")}
         >
           Assembler School Recipes 🍜
         </NavLink>
@@ -22,6 +26,7 @@ function Header({ currentUserState: { isAuthenticated } = {}, signout }) {
               additionalClasses="nav-item"
               variant="light"
               onClick={() => signout()}
+              data-testid={prefix("logout")}
             >
               Salir
             </Button>
@@ -32,6 +37,7 @@ function Header({ currentUserState: { isAuthenticated } = {}, signout }) {
                   to={ROUTES.LOGIN}
                   activeClassName="active"
                   className="nav-link"
+                  data-testid={prefix("login")}
                 >
                   Login
                 </NavLink>
@@ -41,6 +47,7 @@ function Header({ currentUserState: { isAuthenticated } = {}, signout }) {
                   to={ROUTES.SIGNUP}
                   activeClassName="active"
                   className="nav-link"
+                  data-testid={prefix("register")}
                 >
                   Registrar
                 </NavLink>

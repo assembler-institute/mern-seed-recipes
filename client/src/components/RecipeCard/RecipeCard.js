@@ -27,8 +27,12 @@ function RecipeCard({
         <img src={image} alt="" className="RecipeCard__Img" />
       </div>
       <div className="RecipeCard__Content">
-        <Link to={`${ROUTES.RECIPES}/${_id}`} className="card-link">
-          <h3 test-id="recipe-card-title" className="RecipeCard__Title">{name}</h3>
+        <Link
+          to={`${ROUTES.RECIPES}/${_id}`}
+          data-testid={`recipe-card-${_id}`}
+          className="card-link"
+        >
+          <h3 className="RecipeCard__Title">{name}</h3>
         </Link>
         <div className="RecipeCard__Info">
           <CardTime hoursToPrep={hoursToPrep} minutesToPrep={minutesToPrep} />

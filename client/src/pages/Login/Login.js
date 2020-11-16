@@ -8,6 +8,7 @@ import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 import Label from "../../components/Label/Label";
 import ROUTES from "../../utils/routes";
+import makePrefix from "../../utils/make-prefix";
 
 function Login({
   currentUserState: { isAuthenticated, loginError, isLoggingIn } = {},
@@ -15,6 +16,7 @@ function Login({
 }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const prefix = makePrefix("login-form");
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -43,7 +45,7 @@ function Login({
                 <Label htmlFor="email">Email</Label>
                 <Input
                   type="email"
-                  id="email"
+                  data-testid={prefix("email")}
                   placeholder="Tu email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -55,6 +57,7 @@ function Login({
                   type="password"
                   id="password"
                   placeholder="Tu contraseña"
+                  data-testid={prefix("password")}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
@@ -63,6 +66,7 @@ function Login({
                 htmlType="submit"
                 additionalClasses="mt-4 btn-block"
                 disabled={isLoggingIn}
+                data-testid={prefix("cta")}
               >
                 Iniciar sesión
               </Button>

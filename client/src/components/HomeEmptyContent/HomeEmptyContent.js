@@ -6,7 +6,7 @@ import { ReactComponent as EmptyStateSVG } from "../../assets/undraw_add_content
 
 function HomeEmptyContent({
   title = "Todavía no hay recetas",
-  subhead = "Completa el primer ejercicio para mostrar todas las recetas.",
+  subhead = "No hay contenido aún",
 }) {
   return (
     <div className="HomeEmptyContent row flex-column align-items-center">

@@ -1,13 +1,15 @@
 import React from "react";
 import App from "../App";
 import { renderWithReduxAndRouter } from "../utils/tests";
-import { waitFor } from "@testing-library/react";
+import { getByText, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 import makeTestingServer from "../__mocks__/make-testing-server";
 
 import allRecipesResponse from "../__mocks__/recipes/all-recipes.json";
 import singleRecipeResponse from "../__mocks__/recipes/single-recipe.json";
 import recipeCommentResponse from "../__mocks__/recipes/recipe-comments.json";
+import { signUp } from "../redux/user/user-actions";
 
 const testUser = {
   name: "test_user_name",
@@ -49,64 +51,186 @@ describe("App behaviour", () => {
   beforeAll(() => server.listen());
   afterEach(() => server.resetHandlers());
   afterAll(() => server.close());
-
   it("should be defined", () => {
     expect(App).toBeDefined();
   });
 
-  describe("Application [Navbar]", () => {
-    it(`should contain the right content`, () => {
-      const { getByText } = renderWithReduxAndRouter(<App />);
-      expect(
-        getByText("Assembler School Recipes 🍜", { exact: false }),
-      ).toBeInTheDocument();
+  describe("route [/]", () => {
+    describe("Application [Header]", () => {
+      it(`should contain the right content`, () => {
+        const { getByText } = renderWithReduxAndRouter(<App />);
+        expect(
+          getByText("Assembler School Recipes 🍜", { exact: false }),
+        ).toBeInTheDocument();
 
-      expect(getByText("Registrar", { exact: false })).toBeInTheDocument();
+        expect(getByText("Registrar", { exact: false })).toBeInTheDocument();
 
-      expect(getByText("Login", { exact: false })).toBeInTheDocument();
+        expect(getByText("Login", { exact: false })).toBeInTheDocument();
+      });
+    });
+
+    describe("Application [Hero]", () => {
+      it(`should contain the right content`, () => {
+        const { getByText } = renderWithReduxAndRouter(<App />);
+        expect(
+          getByText("Descubre nuestras mejores recetas", { exact: false }),
+        ).toBeInTheDocument();
+
+        expect(
+          getByText("Nuestros expertos cocineros", { exact: false }),
+        ).toBeInTheDocument();
+      });
+    });
+
+    describe("Application [Recipes]", () => {
+      it(`should contain the right content when loading`, () => {
+        const { getByText } = renderWithReduxAndRouter(<App />);
+
+        expect(
+          getByText("Cargando recetas...", { exact: false }),
+        ).toBeInTheDocument();
+      });
+
+      it(`should contain the right content once its loaded`, async () => {
+        const { queryByText, queryAllByText } = renderWithReduxAndRouter(
+          <App />,
+        );
+
+        await waitFor(() =>
+          expect(queryByText("recipe-3-name")).toBeInTheDocument(),
+        );
+        const items = await queryAllByText(/Tiempo Estimado/);
+
+        expect(items).toHaveLength(3);
+      });
+
+      it("should be able to navigate to a recipe's detail", async () => {
+        const { getByTestId, getByText } = renderWithReduxAndRouter(<App />);
+
+        await waitFor(() =>
+          expect(getByTestId("recipe-card-3")).toBeInTheDocument(),
+        );
+        userEvent.click(getByTestId("recipe-card-3"));
+
+        await waitFor(() =>
+          expect(
+            getByText("Gordon Ramsay", { exact: false }),
+          ).toBeInTheDocument(),
+        );
+
+        expect(getByText("Pasta")).toBeInTheDocument();
+        expect(getByText("Ketchup")).toBeInTheDocument();
+        expect(getByText("Mayonesa")).toBeInTheDocument();
+        expect(getByText("Bacon")).toBeInTheDocument();
+      });
+
+      it("should be able to add a new comment to a recipe", async () => {
+        const {
+          queryByTestId,
+          getByTestId,
+          getByText,
+          debug,
+          store,
+        } = renderWithReduxAndRouter(<App />);
+
+        await waitFor(() =>
+          expect(getByTestId("recipe-card-3")).toBeInTheDocument(),
+        );
+
+        userEvent.click(getByTestId("recipe-card-3"));
+
+        await waitFor(() =>
+          expect(
+            getByText("Gordon Ramsay", { exact: false }),
+          ).toBeInTheDocument(),
+        );
+
+        expect(queryByTestId("recipe-new-comment")).toBeFalsy();
+
+        store.dispatch(signUp(testUser));
+
+        await waitFor(() =>
+          expect(getByTestId("recipe-new-comment")).toBeInTheDocument(),
+        );
+
+        const comment = "test_comment_body";
+
+        userEvent.click(getByTestId("recipe-new-comment"));
+
+        userEvent.type(getByTestId("recipe-textarea"), comment);
+
+        userEvent.click(getByTestId("recipe-send-comment"));
+
+        await waitFor(() => expect(getByText(comment)).toBeInTheDocument());
+      });
+    });
+
+    describe("Application [Footer]", () => {
+      it(`should contain the right content`, () => {
+        const { getByText } = renderWithReduxAndRouter(<App />);
+        expect(
+          getByText("Assembler School MERN Starter 🌱 2020", { exact: false }),
+        ).toBeInTheDocument();
+      });
     });
   });
 
-  describe("Application [Hero]", () => {
-    it(`should contain the right content`, () => {
-      const { getByText } = renderWithReduxAndRouter(<App />);
-      expect(
-        getByText("Descubre nuestras mejores recetas", { exact: false }),
-      ).toBeInTheDocument();
+  describe("route [/sign-up]", () => {
+    const route = "/sign-up";
 
-      expect(
-        getByText("Nuestros expertos cocineros", { exact: false }),
-      ).toBeInTheDocument();
+    describe("Application [Form]", () => {
+      it(`should contain the right content`, () => {
+        const { getByText } = renderWithReduxAndRouter(<App />, route);
+        expect(
+          getByText("Nuevo usuario", { exact: false }),
+        ).toBeInTheDocument();
+
+        expect(getByText("Nombre", { exact: false })).toBeInTheDocument();
+
+        expect(getByText("Apellido", { exact: false })).toBeInTheDocument();
+      });
+
+      it(`should be able to create a new user`, async () => {
+        const { getByTestId } = renderWithReduxAndRouter(<App />, route);
+        userEvent.type(getByTestId("signup-form-email"), "test@test.com");
+        userEvent.type(getByTestId("signup-form-name"), "test");
+        userEvent.type(getByTestId("signup-form-lastname"), "recipes");
+        userEvent.type(getByTestId("signup-form-password"), "123supersecure");
+
+        const cta = getByTestId("signup-form-cta");
+        userEvent.click(cta);
+
+        await waitFor(() =>
+          expect(getByTestId("header-logout")).toBeInTheDocument(),
+        );
+      });
     });
   });
 
-  describe("Application [Recipes]", () => {
-    it(`should contain the right content when loading`, () => {
-      const { getByText } = renderWithReduxAndRouter(<App />);
+  describe("route [/login]", () => {
+    const route = "/login";
 
-      expect(
-        getByText("Cargando recetas...", { exact: false }),
-      ).toBeInTheDocument();
-    });
+    describe("Application [Form]", () => {
+      it(`should contain the right content`, () => {
+        const { getByText } = renderWithReduxAndRouter(<App />, route);
 
-    it(`should contain the right content once its loaded`, async () => {
-      const { queryByText, queryAllByText } = renderWithReduxAndRouter(<App />);
+        expect(getByText("Email", { exact: false })).toBeInTheDocument();
 
-      await waitFor(() =>
-        expect(queryByText("recipe-3-name")).toBeInTheDocument(),
-      );
-      const items = await queryAllByText(/Tiempo Estimado/);
+        expect(getByText("Contraseña", { exact: false })).toBeInTheDocument();
+      });
 
-      expect(items).toHaveLength(3);
-    });
-  });
+      it(`should be able to login with a user`, async () => {
+        const { getByTestId } = renderWithReduxAndRouter(<App />, route);
+        userEvent.type(getByTestId("login-form-email"), "test@test.com");
+        userEvent.type(getByTestId("login-form-password"), "123supersecure");
 
-  describe("Application [Footer]", () => {
-    it(`should contain the right content`, () => {
-      const { getByText } = renderWithReduxAndRouter(<App />);
-      expect(
-        getByText("Assembler School MERN Starter 🌱 2020", { exact: false }),
-      ).toBeInTheDocument();
+        const cta = getByTestId("login-form-cta");
+        userEvent.click(cta);
+
+        await waitFor(() =>
+          expect(getByTestId("header-logout")).toBeInTheDocument(),
+        );
+      });
     });
   });
 });

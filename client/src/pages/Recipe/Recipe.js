@@ -10,6 +10,7 @@ import Button from "../../components/Button/Button";
 import Label from "../../components/Label/Label";
 import TextArea from "../../components/TextArea/TextArea";
 import HomeEmptyContent from "../../components/HomeEmptyContent/HomeEmptyContent";
+import makePrefix from "../../utils/make-prefix";
 
 function CommentsCount({ commentsArr = [] }) {
   if (Array.isArray(commentsArr) && commentsArr.length === 0) {
@@ -70,6 +71,8 @@ function Recipe({
 
   const [comment, setComment] = useState("");
   const [showForm, setShowForm] = useState(false);
+
+  const prefix = makePrefix("recipe");
 
   function handleAddComment(e) {
     e.preventDefault();
@@ -176,6 +179,7 @@ function Recipe({
                       <Button
                         additionalClasses="mt-2 mt-sm-0 ml-sm-auto"
                         onClick={() => setShowForm(true)}
+                        data-testid={prefix("new-comment")}
                       >
                         Nuevo Comentario
                       </Button>
@@ -190,7 +194,7 @@ function Recipe({
                         <TextArea
                           placeholder="Comentario"
                           rows="4"
-                          id="textarea"
+                          data-testid={prefix("textarea")}
                           value={comment}
                           onChange={(e) => setComment(e.target.value)}
                         />
@@ -198,6 +202,7 @@ function Recipe({
                           htmlType="submit"
                           additionalClasses="mt-3"
                           disabled={recipeUpdating}
+                          data-testid={prefix("send-comment")}
                         >
                           Enviar
                         </Button>
@@ -229,7 +234,7 @@ function Recipe({
               <div className="col col-lg-10">
                 <HomeEmptyContent
                   title="Todavía no hay contenido"
-                  subhead="Completa el ejercicio para poder mostrar los datos de la receta."
+                  subhead="Contenido secundario"
                 />
               </div>
             </div>

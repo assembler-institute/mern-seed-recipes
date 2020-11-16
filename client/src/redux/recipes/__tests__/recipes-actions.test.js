@@ -58,7 +58,7 @@ describe("recipes thunk actions tests", () => {
       },
       {
         type: RecipesTypes.FETCH_RECIPE_SUCCESS,
-        payload: recipesData.singleRecipeResponse,
+        payload: recipesData.singleRecipeResponse.data,
       },
     ];
 

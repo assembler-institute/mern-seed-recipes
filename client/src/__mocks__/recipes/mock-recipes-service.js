@@ -9,7 +9,7 @@ import { setupServer } from "msw/node";
 const path = "http://localhost:4000";
 
 const makeHandlers = ({ recipesData }) => [
-  rest.get(`${path}/recipes`, (req, res, ctx) => {
+  rest.get(`${path}/recipes`, (_, res, ctx) => {
     return res(
       ctx.json({
         data: recipesData.allRecipesResponse.data,
@@ -21,15 +21,13 @@ const makeHandlers = ({ recipesData }) => [
   rest.get(`${path}/recipes/:recipeID`, (req, res, ctx) => {
     return res(
       ctx.json({
-        data: {
-          data: recipesData.singleRecipeResponse.data,
-        },
+        data: recipesData.singleRecipeResponse.data,
       }),
       ctx.status(200),
     );
   }),
 
-  rest.post(`${path}/recipes/:recipeID/comment`, (req, res, ctx) => {
+  rest.post(`${path}/recipes/:recipeID/comment`, (_, res, ctx) => {
     return res(
       ctx.json({
         data: recipesData.recipeCommentResponse,

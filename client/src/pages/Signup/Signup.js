@@ -8,6 +8,7 @@ import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 import Label from "../../components/Label/Label";
 import ROUTES from "../../utils/routes";
+import makePrefix from "../../utils/make-prefix";
 
 function Signup({
   currentUserState: { isAuthenticated, signUpError, isSigningUp } = {},
@@ -17,6 +18,7 @@ function Signup({
   const [lastname, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const prefix = makePrefix("signup-form");
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -47,6 +49,7 @@ function Signup({
                   type="text"
                   id="name"
                   placeholder="Tu nombre"
+                  data-testid={prefix("name")}
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
@@ -56,6 +59,7 @@ function Signup({
                 <Input
                   type="text"
                   id="lastname"
+                  data-testid={prefix("lastname")}
                   placeholder="Tu apellido"
                   value={lastname}
                   onChange={(e) => setLastName(e.target.value)}
@@ -64,7 +68,7 @@ function Signup({
               <div className="form-group">
                 <Label htmlFor="email">Email</Label>
                 <Input
-                  id="email"
+                  data-testid={prefix("email")}
                   type="email"
                   placeholder="Tu email"
                   value={email}
@@ -75,6 +79,7 @@ function Signup({
                 <Label htmlFor="password">Contraseña</Label>
                 <Input
                   id="password"
+                  data-testid={prefix("password")}
                   type="password"
                   placeholder="Tu contraseña"
                   value={password}
@@ -85,6 +90,7 @@ function Signup({
                 htmlType="submit"
                 additionalClasses="mt-4 btn-block"
                 disabled={isSigningUp}
+                data-testid={prefix("cta")}
               >
                 Registrar
               </Button>
