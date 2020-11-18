@@ -26,6 +26,35 @@ Ejecutar `npm i` o `yarn` en un terminal para instalar las dependencias
 Ejecutar `npm run dev` o `yarn dev` en un terminal para ejecutar nuestra
 applicacion.
 
+### Testing
+
+Para ejecutar los tests unitarios / de integracion seran necesarios los
+siguientes pasos:
+
+#### Instalar mongodb
+
+Asegurate de que [mongodb](https://www.mongodb.com/) esta instalado en tu equipo. Puedes descargarlo
+[aqui](https://www.mongodb.com/try/download/community)
+
+#### Colocar mongo como variables de entorno
+
+Mongo deberia estar instalado en `C:\Program Files\MongoDB\Server\4.4\bin`
+
+Deberas crear una nueva variable de entorno que apunte allí.
+
+De manera alternativa puedes utilizar `powershell`:
+
+`setx mongo "C:\Program Files\MongoDB\Server\4.4\bin"`
+
+Al escribir `mongo` en una terminal deberas ver la consola de mongo. Con esto
+sabras que ya tienes mongo instalado y en el path.
+
+#### Lanzar los tests
+
+En una terminal ejecuta `npm run test` o `npm test`.
+
+Para ejecutar los tests mientras programas, utiliza `npm run test:watch`.
+
 ## Autor
 
 [Dani Lucaci](https://www.danilucaci.com/).

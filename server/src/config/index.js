@@ -11,10 +11,10 @@ module.exports = {
   },
   test: {
     port: 4000,
-    JWT_SECRET: process.env.JWT_SECRET,
-    BCRYPT_SALT_ROUNDS: parseInt(process.env.BCRYPT_SALT_ROUNDS),
+    JWT_SECRET: "my-secret",
+    BCRYPT_SALT_ROUNDS: 10,
     db: {
-      url: process.env.MONGO_DB_URL_TEST,
+      url: "mongodb://localhost:27017/myapp",
     },
   },
   production: {
