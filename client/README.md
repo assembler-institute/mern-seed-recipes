@@ -6,7 +6,7 @@ Cliente para la aplicación MERN.
 
 - React
 - Redux
-  - redux-persis
+  - redux-persist
   - redux-thunk
   - redux-devtools-extension
   - redux-logger
