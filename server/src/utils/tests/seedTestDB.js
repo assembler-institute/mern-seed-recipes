@@ -12,10 +12,38 @@ function getTestUsers() {
       },
       unhashedPassword: "testpassword",
     },
+    {
+      user: {
+        name: "Test User 2 Name",
+        lastname: "Test User 2 Name",
+        email: "testemail2@mail.com",
+        password:
+          "$2b$12$jkAt75qsYkXlypuLK7PEIuj9TIcnZFJbCdwjmGbfbgOBFpvitJysS",
+      },
+      unhashedPassword: "testpassword",
+    },
+    {
+      user: {
+        name: "Test User 3 Name",
+        lastname: "Test User 3 Name",
+        email: "testemail3@mail.com",
+        password:
+          "$2b$12$jkAt75qsYkXlypuLK7PEIuj9TIcnZFJbCdwjmGbfbgOBFpvitJysS",
+      },
+      unhashedPassword: "testpassword",
+    },
+    {
+      user: {
+        name: "Test User 4 Name",
+        lastname: "Test User 4 Name",
+        email: "testemail4@mail.com",
+        password:
+          "$2b$12$jkAt75qsYkXlypuLK7PEIuj9TIcnZFJbCdwjmGbfbgOBFpvitJysS",
+      },
+      unhashedPassword: "testpassword",
+    },
   ];
 }
-
-const USERS = [...getTestUsers().map((entry) => entry.user)];
 
 const RECIPES = [
   {
@@ -70,14 +98,17 @@ function getRandomItem(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
-async function seedTestDB() {
-  const newUsers = await db.User.insertMany(USERS);
+async function seedTestRecibesDB() {
+  const testUser = getRecipesRoutesTestUser();
 
-  const newUsersIDs = newUsers.map((user) => user._id);
+  const newUser = await db.User.create({
+    ...testUser.user,
+    password: testUser.unhashedPassword,
+  });
 
   const recipesWithAuthor = RECIPES.map((recipe) => ({
     ...recipe,
-    author: getRandomItem(newUsersIDs),
+    author: newUser._id,
   }));
 
   const newRecipes = await db.Recipe.insertMany(recipesWithAuthor);
@@ -86,7 +117,7 @@ async function seedTestDB() {
 
   const newCommentsWithData = COMMENTS.map((comment) => ({
     ...comment,
-    author: getRandomItem(newUsersIDs),
+    author: newUser._id,
     recipe: getRandomItem(newRecipesIDS),
   }));
 
@@ -104,8 +135,20 @@ async function seedTestDB() {
   });
 }
 
-function getAuthenticatedTestUser() {
+function getUsersRouteTestUser() {
   return getTestUsers()[0];
+}
+
+function getUserModelTestUser() {
+  return getTestUsers()[1];
+}
+
+function getRecipesRoutesTestUser() {
+  return getTestUsers()[2];
+}
+
+function getAuthenticatedTestUser() {
+  return getRecipesRoutesTestUser();
 }
 
 async function getRecipeWithComments() {
@@ -115,7 +158,10 @@ async function getRecipeWithComments() {
 }
 
 module.exports = {
-  seedTestDB,
+  seedTestRecibesDB,
   getAuthenticatedTestUser,
   getRecipeWithComments,
+  getUsersRouteTestUser,
+  getUserModelTestUser,
+  getRecipesRoutesTestUser,
 };

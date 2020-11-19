@@ -1,24 +1,25 @@
 const supertest = require("supertest");
 const config = require("../../utils/tests/config");
-
 const app = require("../../server");
-
 const setupTestDB = require("../../utils/tests/seedTestDB");
+const { getRecipesRoutesTestUser } = require("../../utils/tests/seedTestDB");
 
 const request = supertest(app);
 
 beforeAll(async () => {
   await config.connect();
-  await setupTestDB.seedTestDB();
+  await setupTestDB.seedTestRecibesDB();
 });
 
 afterAll(async () => {
-  await config.dropCollections();
+  await config.deleteUsersByEmail(getRecipesRoutesTestUser().user.email);
+  await config.clearRecipesCollection();
+  await config.clearCommentsCollection();
   await config.disconnect();
 });
 
 describe("Public recipe routes", () => {
-  test("Can fetch all recipes", async () => {
+  it("can fetch all recipes", async () => {
     const res = await request.get("/recipes");
 
     expect(res.status).toBe(200);
@@ -26,7 +27,7 @@ describe("Public recipe routes", () => {
     expect(res.body.data[0]._id).toEqual(expect.any(String));
   });
 
-  test("Can fetch a single recipe", async () => {
+  it("can fetch a single recipe", async () => {
     const TEST_RECIPE = await setupTestDB.getRecipeWithComments();
 
     const res = await request.get(`/recipes/${TEST_RECIPE._id}`);
@@ -58,7 +59,7 @@ describe("Authenticated recipe routes", () => {
     bearerToken = loginRes.body.data.token;
   });
 
-  test("Can add comments to a recipe", async () => {
+  it("can add comments to a recipe", async () => {
     const res = await request
       .post(`/recipes/${testRecipe._id}/comment`)
       .send({
@@ -73,7 +74,7 @@ describe("Authenticated recipe routes", () => {
     expect(res.body.error).toBeNull();
   });
 
-  test("Can’t add comments to a recipe without a comment body", async () => {
+  it("can’t add comments to a recipe without a comment body", async () => {
     const res = await request
       .post(`/recipes/${testRecipe._id}/comment`)
       .set("Authorization", `Bearer ${bearerToken}`);
@@ -83,13 +84,13 @@ describe("Authenticated recipe routes", () => {
     expect(res.body.error).toMatch(/missing/i);
   });
 
-  test("Can’t add comments to a recipe without a token", async () => {
+  it("can’t add comments to a recipe without a token", async () => {
     const res = await request.post(`/recipes/${testRecipe._id}/comment`);
 
     expect(res.status).toBe(401);
   });
 
-  test("Can remove comments from a recipe", async () => {
+  it("can remove comments from a recipe", async () => {
     const res = await request
       .delete(`/recipes/${testRecipe._id}/${testRecipe.comments[0]}`)
       .set("Authorization", `Bearer ${bearerToken}`);
@@ -99,7 +100,7 @@ describe("Authenticated recipe routes", () => {
     expect(res.body.error).toBeNull();
   });
 
-  test("Can’t remove comments from a recipe without a token", async () => {
+  it("can’t remove comments from a recipe without a token", async () => {
     const res = await request.delete(
       `/recipes/${testRecipe._id}/${testRecipe.comments[0]}`,
     );

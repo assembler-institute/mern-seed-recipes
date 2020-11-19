@@ -66,7 +66,7 @@ async function dropUserCollection() {
 /**
  * Delete users by email
  */
-async function deleteUsersByEmail(emails) {
+async function deleteUsersByEmail(...emails) {
   await mongoose.connection.db.collection("users").deleteMany({
     email: {
       $in: emails,
@@ -89,6 +89,20 @@ async function dropRecipesCollection() {
 }
 
 /**
+ * Clears the comments collection
+ */
+async function clearCommentsCollection() {
+  await mongoose.connection.db.collection("comments").deleteMany();
+}
+
+/**
+ * Drops the comments collection
+ */
+async function dropCommentsCollection() {
+  await mongoose.connection.db.collection("comments").drop();
+}
+
+/**
  * Disconnect from the mongoose connection
  */
 async function disconnect() {
@@ -104,5 +118,7 @@ module.exports = {
   dropUserCollection,
   clearRecipesCollection,
   dropRecipesCollection,
+  clearCommentsCollection,
+  dropCommentsCollection,
   disconnect,
 };
