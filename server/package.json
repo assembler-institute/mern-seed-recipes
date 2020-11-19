@@ -16,8 +16,8 @@
   "license": "MIT",
   "main": "./src/index.js",
   "scripts": {
-    "test": "jest --NODE_ENV=test",
-    "test:watch": "jest --NODE_ENV=test --watch",
+    "test": "jest",
+    "test:watch": "jest --watch",
     "dev": "nodemon ./src/index.js"
   },
   "dependencies": {
