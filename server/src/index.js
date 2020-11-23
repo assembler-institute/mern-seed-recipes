@@ -9,8 +9,8 @@ const { dropCollections } = require("./utils/tests/config");
 
 connect()
   .then(async () => {
-    await dropCollections();
-    await seed();
+    // await dropCollections();
+    // await seed();
 
     app.listen(config.port, () => {
       console.log(`Server listening on http://localhost:${config.port}`);

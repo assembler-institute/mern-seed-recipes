@@ -26,6 +26,17 @@ Ejecutar `npm i` o `yarn` en un terminal para instalar las dependencias
 Ejecutar `npm run dev` o `yarn dev` en un terminal para ejecutar nuestra
 applicacion.
 
+### Rellenar la base de datos con información
+
+En el fichero `index.js` de la carpeta `server` podéis comentar las siguientes
+líneas para ejecutar las funciones que rellenan la base de datos con
+información.
+
+```
+// await dropCollections();
+// await seed();
+```
+
 ### Testing
 
 Para ejecutar los tests unitarios / de integracion seran necesarios los
