@@ -21,7 +21,7 @@ variables:
 
 Ejecutar `npm i` o `yarn` en un terminal para instalar las dependencias
 
-### Instalar dependencias
+### Ejecutar el servidor
 
 Ejecutar `npm run dev` o `yarn dev` en un terminal para ejecutar nuestra
 applicacion.
@@ -33,7 +33,8 @@ siguientes pasos:
 
 #### Instalar mongodb
 
-Asegurate de que [mongodb](https://www.mongodb.com/) esta instalado en tu equipo. Puedes descargarlo
+Asegurate de que [mongodb](https://www.mongodb.com/) esta instalado en tu
+equipo. Puedes descargarlo
 [aqui](https://www.mongodb.com/try/download/community)
 
 #### Colocar mongo como variables de entorno
