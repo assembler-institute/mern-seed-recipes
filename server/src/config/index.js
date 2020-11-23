@@ -14,7 +14,8 @@ module.exports = {
     JWT_SECRET: "my-secret",
     BCRYPT_SALT_ROUNDS: 10,
     db: {
-      url: "mongodb://localhost:27017/myapp",
+      // url: "mongodb://localhost:27017/myapp",
+      url: process.env.MONGO_DB_URL_TEST,
     },
   },
   production: {
