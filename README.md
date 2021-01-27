@@ -24,7 +24,7 @@ Las funcionalidades implementadas son las siguientes:
 
 ### Autor
 
-[Dani Lucaci](https://www.danilucaci.com/).
+[Dani Lucaci](https://github.com/danilucaci).
 
 ### License
 
