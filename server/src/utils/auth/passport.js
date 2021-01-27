@@ -7,7 +7,7 @@ const ExtractJWT = require("passport-jwt").ExtractJwt;
 
 const db = require("../../models");
 const getSanitizedUser = require("./getSanitizedUser");
-const config = require("../../config")[process.env.NODE_ENV || "development"];
+const config = require("../../config");
 
 passport.use(
   "signup",
@@ -32,7 +32,7 @@ passport.use(
         })
           .exec()
           .catch((error) => {
-            console.log(error);
+            config.logger.error(error);
             return done(error);
           });
 
@@ -46,7 +46,7 @@ passport.use(
           return done(null, username);
         }
       } catch (error) {
-        console.log(error);
+        config.logger.error(error);
         return done(error);
       }
     },
@@ -76,7 +76,7 @@ passport.use(
         })
           .exec()
           .catch((error) => {
-            console.log(error);
+            config.logger.error(error);
             return done(error);
           });
 
@@ -94,7 +94,7 @@ passport.use(
 
         return done(null, sanitizedUser);
       } catch (error) {
-        console.log(error);
+        config.logger.error(error);
         return done(error);
       }
     },
@@ -106,17 +106,17 @@ passport.use(
   new JWTstrategy(
     {
       // secret we used to sign the JWT
-      secretOrKey: config.JWT_SECRET,
+      secretOrKey: config.jwt.secret,
 
       // expect the user to send the token as a query parameter with the name 'secret_token'
-      jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(config.JWT_SECRET),
+      jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(config.jwt.secret),
     },
     async function jwtStrategyHandler(jwt_payload, done) {
       try {
         const user = await db.User.findById(jwt_payload.sub)
           .exec()
           .catch((error) => {
-            console.log(error);
+            config.logger.error(error);
             return done(error);
           });
 

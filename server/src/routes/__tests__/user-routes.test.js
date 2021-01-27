@@ -1,18 +1,22 @@
 const supertest = require("supertest");
-const config = require("../../utils/tests/config");
+
+const testServer = require("../../utils/tests/db-test-server");
 const { getUsersRouteTestUser } = require("../../utils/tests/seedTestDB");
+
 const app = require("../../server");
 const User = require("../../models/user-model");
 
 const request = supertest(app);
 
-beforeAll(async () => await config.connect());
-afterAll(async () => await config.disconnect());
+beforeAll(async () => {
+  await testServer.initTestServer();
+});
+
+afterEach(async () => await testServer.clearCollection("users"));
+afterAll(async () => await testServer.stopTestServer());
 
 describe("user route", () => {
   const testUser = getUsersRouteTestUser();
-
-  beforeEach(async () => await config.deleteUsersByEmail(testUser.user.email));
 
   it("can sign up a new user", async () => {
     const res = await request

@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const beautifyUnique = require("mongoose-beautiful-unique-validation");
 
 const RecipeSchema = new mongoose.Schema({
   name: {
@@ -55,7 +54,5 @@ const RecipeSchema = new mongoose.Schema({
 });
 
 const Recipe = mongoose.model("recipe", RecipeSchema);
-
-RecipeSchema.plugin(beautifyUnique);
 
 module.exports = Recipe;

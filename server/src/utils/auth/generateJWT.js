@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
-const config = require("../../config")[process.env.NODE_ENV || "development"];
+const config = require("../../config");
 
 function generateJWT(userID, next) {
   if (!userID || typeof next !== "function") {
@@ -13,8 +13,9 @@ function generateJWT(userID, next) {
       sub: userID,
     };
 
-    // Sign the JWT token and populate the payload with the user email and id
-    const token = jwt.sign(payload, config.JWT_SECRET, {
+    // Sign the JWT token and populate the payload
+    // with the user email and id
+    const token = jwt.sign(payload, config.jwt.secret, {
       expiresIn: "2d",
     });
 

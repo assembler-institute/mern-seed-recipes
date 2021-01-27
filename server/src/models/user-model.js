@@ -1,10 +1,9 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-const emailValidator = require("email-validator");
-const beautifyUnique = require("mongoose-beautiful-unique-validation");
+const validator = require("validator");
 require("dotenv").config();
 
-const config = require("../config")[process.env.NODE_ENV || "development"];
+const config = require("../config");
 
 const UserSchema = new mongoose.Schema(
   {
@@ -27,7 +26,7 @@ const UserSchema = new mongoose.Schema(
       trim: true,
       lowercase: true,
       validate: {
-        validator: emailValidator.validate,
+        validator: validator.isEmail,
         message: (props) => `${props.value} is not a valid email address`,
       },
     },
@@ -44,18 +43,13 @@ const UserSchema = new mongoose.Schema(
   },
 );
 
-UserSchema.plugin(beautifyUnique);
-
 UserSchema.pre("save", async function preSave(next) {
   const user = this;
 
   if (!user.isModified("password")) return next();
 
   try {
-    const hash = await bcrypt.hash(
-      user.password,
-      parseInt(config.BCRYPT_SALT_ROUNDS),
-    );
+    const hash = await bcrypt.hash(user.password, config.bcryptSaltRounds);
 
     user.password = hash;
 
@@ -65,7 +59,7 @@ UserSchema.pre("save", async function preSave(next) {
   }
 });
 
-UserSchema.methods.comparePassword = async function(candidate) {
+UserSchema.methods.comparePassword = async function (candidate) {
   return bcrypt.compare(candidate, this.password);
 };
 

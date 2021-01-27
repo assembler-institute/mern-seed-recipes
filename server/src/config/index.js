@@ -1,29 +1,52 @@
 require("dotenv").config();
+const logger = require("loglevel");
 
-module.exports = {
+logger.enableAll();
+
+const {
+  NODE_ENV = "development",
+  MONGO_DB_URL_PRODUCTION,
+  MONGO_DB_URL_DEVELOPMENT,
+  MONGO_DB_URL_TEST,
+  PORT = 4000,
+  JWT_SECRET,
+  BCRYPT_SALT_ROUNDS,
+} = process.env;
+
+const baseConfig = {
+  port: PORT,
+  jwt: {
+    secret: JWT_SECRET,
+  },
+  bcryptSaltRounds: parseInt(BCRYPT_SALT_ROUNDS),
+  logger: {
+    warn: logger.warn,
+    info: logger.info,
+    error: logger.error,
+    trace: logger.trace,
+    debug: logger.debug,
+  },
+};
+
+const config = {
   development: {
-    port: 4000,
-    JWT_SECRET: process.env.JWT_SECRET,
-    BCRYPT_SALT_ROUNDS: parseInt(process.env.BCRYPT_SALT_ROUNDS),
+    ...baseConfig,
     db: {
-      url: process.env.MONGO_DB_URL_DEVELOPMENT,
+      url: MONGO_DB_URL_DEVELOPMENT,
     },
   },
   test: {
-    port: 4000,
-    JWT_SECRET: "my-secret",
-    BCRYPT_SALT_ROUNDS: 10,
+    ...baseConfig,
     db: {
-      // url: "mongodb://localhost:27017/myapp",
-      url: process.env.MONGO_DB_URL_TEST,
+      url: MONGO_DB_URL_TEST,
     },
   },
   production: {
-    port: 4000,
-    JWT_SECRET: process.env.JWT_SECRET,
-    BCRYPT_SALT_ROUNDS: parseInt(process.env.BCRYPT_SALT_ROUNDS),
+    ...baseConfig,
     db: {
-      url: process.env.MONGO_DB_URL_PRODUCTION,
+      url: MONGO_DB_URL_PRODUCTION,
     },
   },
 };
+
+module.exports = config[NODE_ENV];
