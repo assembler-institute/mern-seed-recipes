@@ -1,21 +1,21 @@
 const supertest = require("supertest");
-const config = require("../../utils/tests/config");
+
+const testServer = require("../../utils/tests/db-test-server");
 const app = require("../../server");
 const setupTestDB = require("../../utils/tests/seedTestDB");
-const { getRecipesRoutesTestUser } = require("../../utils/tests/seedTestDB");
 
 const request = supertest(app);
 
 beforeAll(async () => {
-  await config.connect();
+  await testServer.initTestServer();
   await setupTestDB.seedTestRecibesDB();
 });
 
 afterAll(async () => {
-  await config.deleteUsersByEmail(getRecipesRoutesTestUser().user.email);
-  await config.clearRecipesCollection();
-  await config.clearCommentsCollection();
-  await config.disconnect();
+  await testServer.clearCollection("users");
+  await testServer.clearCollection("recipes");
+  await testServer.clearCollection("comments");
+  await testServer.stopTestServer();
 });
 
 describe("Public recipe routes", () => {

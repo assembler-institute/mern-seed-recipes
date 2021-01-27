@@ -1,14 +1,13 @@
-const config = require("../../utils/tests/config");
+const testServer = require("../../utils/tests/db-test-server");
 const User = require("../user-model");
 const { getUserModelTestUser } = require("../../utils/tests/seedTestDB");
 
-beforeAll(async () => await config.connect());
-afterAll(async () => await config.disconnect());
+beforeAll(async () => await testServer.initTestServer());
+afterEach(async () => await testServer.clearCollection("users"));
+afterAll(async () => await testServer.stopTestServer());
 
 describe("user model", () => {
   const testUser = getUserModelTestUser();
-
-  beforeEach(async () => await config.deleteUsersByEmail(testUser.user.email));
 
   it("can create a new user model", async () => {
     const user = await User.create({
