@@ -169,7 +169,7 @@ describe("App behaviour", () => {
       it(`should contain the right content`, () => {
         const { getByText } = renderWithReduxAndRouter(<App />);
         expect(
-          getByText("Assembler School MERN Starter 🌱 2020", { exact: false }),
+          getByText("Assembler School MERN Starter 🌱", { exact: false }),
         ).toBeInTheDocument();
       });
     });
