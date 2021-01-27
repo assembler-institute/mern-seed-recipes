@@ -69,7 +69,7 @@ Para ejecutar los tests mientras programas, utiliza `npm run test:watch`.
 
 ## Autor
 
-[Dani Lucaci](https://www.danilucaci.com/).
+[Dani Lucaci](https://github.com/danilucaci).
 
 ## License
 

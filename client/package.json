@@ -1,7 +1,7 @@
 {
   "name": "assemblerschool-mern-seed-recipes",
   "version": "1.0.0",
-  "description": "Cliente para la aplicación creada con React.js y Node.js para el reto de Assembler School desarrollada por @danilucaci.",
+  "description": "Client app made with React.js and Node.js for the Assembler School MERN Recipes App by @danilucaci.",
   "private": true,
   "author": "Dani Lucaci <danilucaci@gmail.com>",
   "repository": {
@@ -9,7 +9,7 @@
     "url": "https://github.com/assembler-school/mern-seed-recipes.git"
   },
   "keywords": [
-    "challange",
+    "challenge",
     "react.js",
     "node.js"
   ],
